@@ -2,7 +2,7 @@
 A simple test atempting to build a REST api in Go. This is the first thing I've
 written in Go.
 
-## Usage§§
+## Usage
 - Download and install [Go](https://golang.org/dl/)
 - `git clone https://github.com/SpaceLenore/Gestra.git`
 - `go get github.com/gorilla/mux`
