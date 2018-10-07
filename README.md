@@ -16,7 +16,7 @@ Change the variable named port
 ## What does Gestra stand for?
 Good Question! Take your pick from the list or figure out a meaning yourself  
 `Go-based Educational Simple Troublesome REST API`  
-`Go Easy Sample To REST API:s`  
+`Gestra: Easy Sample To REST API:s`  
 `Google Evicts Someone Tomorrow, Rest Assured`
 
 ## Why?
