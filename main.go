@@ -66,6 +66,7 @@ var barriers = Barriers{
 
 //index route
 func index(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	fmt.Fprintf(w,
 		`<h1>GESTRA API</h1>
 <p>
@@ -83,12 +84,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 //display all robots route
 func allRobots(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(robots)
 }
 
 //return a spesific robot route
 func returnRobotByID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	vars := mux.Vars(r)
 	key := vars["id"]
 	convd, err := strconv.Atoi(key)
@@ -107,6 +110,7 @@ func returnRobotByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func allBarriers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(barriers)
 }
