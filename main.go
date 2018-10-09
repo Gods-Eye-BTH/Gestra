@@ -1,94 +1,129 @@
 package main
 
 import (
-    "fmt"
-    "log"
-    "strconv"
-    "net/http"
-    "encoding/json"
-    "github.com/gorilla/mux"
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 //port to run on
 var port = 8080
 
-//Article is a json object
-type Article struct {
-    ID int `json:"id"`
-    Title string `json:"Title"`
-    Desc string `json:"desc"`
-    Content string `json:"content"`
+//Robot is a json object
+type Robot struct {
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Coords [2]int `json:"coords"`
+	Size   [2]int `json:"size"`
 }
 
-//Articles is a array of the type Article
-type Articles []Article
+//Barrier is a json object
+type Barrier struct {
+	ID     int    `json:"id"`
+	Coords [2]int `json:"coords"`
+	Size   [2]int `json:"size"`
+}
 
-//Json objects go here
-var articles = Articles {
-    Article{
-        ID: 0,
-        Title:"Test Title",
-        Desc:"a test article",
-        Content:"Hello json world",
-    },
-    Article{
-        ID: 1,
-        Title: "Hello 2",
-        Desc: "Another Article Description",
-        Content: "Article Content",
-    },
-    Article{
-        ID: 2,
-        Title: "Part 2",
-        Desc: "More Data",
-        Content: "and even more comments",
-    },
+//Robots is an array of the type Robot
+type Robots []Robot
+
+//Barriers is an array of the type Barrier
+type Barriers []Barrier
+
+//Json object containing the robots
+var robots = Robots{
+	Robot{
+		ID:     0,
+		Name:   "Curiosity",
+		Coords: [2]int{1, 2},
+		Size:   [2]int{3, 4},
+	},
+	Robot{
+		ID:     1,
+		Name:   "Tess",
+		Coords: [2]int{5, 6},
+		Size:   [2]int{7, 8},
+	},
+}
+
+//Json object containing the barriers
+var barriers = Barriers{
+	Barrier{
+		ID:     0,
+		Coords: [2]int{1, 2},
+		Size:   [2]int{3, 4},
+	},
+	Barrier{
+		ID:     1,
+		Coords: [2]int{5, 6},
+		Size:   [2]int{7, 8},
+	},
 }
 
 //index route
 func index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w,
-        `<h1>GESTRA API</h1>
-        <p>
-            Welcome to the <b>Gestra api</b>. use the route <code>/all</code>
-            for all the items or <code>/id/{id}</code> for a specific item
-        </p>`)
+	fmt.Fprintf(w,
+		`<h1>GESTRA API</h1>
+<p>
+    Welcome to a modified instance of the <b>Gestra api</b>.<br>
+    the following routes are available:
+    <pre>
+    /robots
+
+    /robot/{id}
+
+    /barriers
+    </pre>
+</p>`)
 }
 
-//display all objects route
-func allArticles(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(articles)
+//display all robots route
+func allRobots(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(robots)
 }
 
-//return a spesific object route
-func returnArticleByID(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    key := vars["id"]
-    convd, err := strconv.Atoi(key)
-    if (err == nil) {
-        if (convd > len(articles)-1) {
-            w.WriteHeader(http.StatusBadRequest)
-            fmt.Fprint(w, "Out of range")
-        } else {
-            w.Header().Set("Content-Type", "application/json")
-            w.WriteHeader(http.StatusOK)
-            json.NewEncoder(w).Encode(articles[convd])
-        }
-    } else {
-        fmt.Fprintf(w, "parse error on key: " + key)
-    }
+//return a spesific robot route
+func returnRobotByID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	key := vars["id"]
+	convd, err := strconv.Atoi(key)
+	if err == nil {
+		if convd > len(robots)-1 || convd < 0 {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprint(w, "Out of range")
+		} else {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			json.NewEncoder(w).Encode(robots[convd])
+		}
+	} else {
+		fmt.Fprintf(w, "parse error on key: "+key)
+	}
 }
 
-func requestHandler()  {
-    muxRouter := mux.NewRouter().StrictSlash(true)
-    muxRouter.HandleFunc("/", index)
-    muxRouter.HandleFunc("/all", allArticles)
-    muxRouter.HandleFunc("/id/{id}", returnArticleByID)
-    log.Fatal(http.ListenAndServe(":" + strconv.Itoa(port), muxRouter))
+func allBarriers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(barriers)
+}
+
+func requestHandler() {
+	muxRouter := mux.NewRouter().StrictSlash(true)
+	muxRouter.HandleFunc("/", index)
+	muxRouter.HandleFunc("/robots", allRobots)
+	muxRouter.HandleFunc("/robot/{id}", returnRobotByID)
+	muxRouter.HandleFunc("/barriers", allBarriers)
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), muxRouter))
 }
 
 func main() {
-    fmt.Println("GESTRA is now running\nport:" + strconv.Itoa(port) + "\n---")
-    requestHandler()
+	fmt.Println("Loading robots...")
+	fmt.Println("Loading barriers...")
+	fmt.Println("GESTRA is now running\nport:" +
+		strconv.Itoa(port) + "\n---")
+	requestHandler()
 }
