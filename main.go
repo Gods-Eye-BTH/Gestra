@@ -48,6 +48,24 @@ var robots = Robots{
 		Coords: [2]int{5, 6},
 		Size:   [2]int{7, 8},
 	},
+	Robot{
+		ID:     2,
+		Name:   "Oportunity",
+		Coords: [2]int{9, 10},
+		Size:   [2]int{11, 12},
+	},
+	Robot{
+		ID:     3,
+		Name:   "Mars III",
+		Coords: [2]int{9, 10},
+		Size:   [2]int{11, 12},
+	},
+	Robot{
+		ID:     4,
+		Name:   "Beagle 2",
+		Coords: [2]int{15, 5},
+		Size:   [2]int{7, 3},
+	},
 }
 
 //Json object containing the barriers
@@ -61,6 +79,16 @@ var barriers = Barriers{
 		ID:     1,
 		Coords: [2]int{5, 6},
 		Size:   [2]int{7, 8},
+	},
+	Barrier{
+		ID:     2,
+		Coords: [2]int{8, 4},
+		Size:   [2]int{5, 5},
+	},
+	Barrier{
+		ID:     3,
+		Coords: [2]int{17, 22},
+		Size:   [2]int{12, 14},
 	},
 }
 
