@@ -2,6 +2,8 @@
 This simulates the data the object detection system outputs. This simple API is
 used as a placeholder until the real object detection API is finished.
 
+The api and examples of live streams is availabale over at [cluster.dystopi.nu](https://cluster.dystopi.nu)
+
 ## Usage
 - Download and install [Go](https://golang.org/dl/)
 - `git clone https://github.com/Gods-Eye-BTH/json-dummy-api.git`
