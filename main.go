@@ -17,15 +17,19 @@ var port = 8080
 type Robot struct {
 	ID     int    `json:"id"`
 	Name   string `json:"name"`
-	Coords [2]int `json:"coords"`
-	Size   [2]int `json:"size"`
+	X      int    `json:"x"`
+	Y      int    `json:"y"`
+	Width  int    `json:"width"`
+	Height int    `json:"height"`
 }
 
 //Barrier is a json object
 type Barrier struct {
-	ID     int    `json:"id"`
-	Coords [2]int `json:"coords"`
-	Size   [2]int `json:"size"`
+	ID     int `json:"id"`
+	X      int `json:"x"`
+	Y      int `json:"y"`
+	Width  int `json:"width"`
+	Height int `json:"height"`
 }
 
 //Robots is an array of the type Robot
@@ -39,32 +43,42 @@ var robots = Robots{
 	Robot{
 		ID:     0,
 		Name:   "Curiosity",
-		Coords: [2]int{1, 2},
-		Size:   [2]int{3, 4},
+		X:      1,
+		Y:      2,
+		Width:  8,
+		Height: 7,
 	},
 	Robot{
 		ID:     1,
 		Name:   "Tess",
-		Coords: [2]int{5, 6},
-		Size:   [2]int{7, 8},
+		X:      3,
+		Y:      4,
+		Width:  10,
+		Height: 15,
 	},
 	Robot{
 		ID:     2,
 		Name:   "Oportunity",
-		Coords: [2]int{9, 10},
-		Size:   [2]int{11, 12},
+		X:      9,
+		Y:      5,
+		Width:  13,
+		Height: 9,
 	},
 	Robot{
 		ID:     3,
 		Name:   "Mars III",
-		Coords: [2]int{9, 10},
-		Size:   [2]int{11, 12},
+		X:      22,
+		Y:      18,
+		Width:  6,
+		Height: 12,
 	},
 	Robot{
 		ID:     4,
 		Name:   "Beagle 2",
-		Coords: [2]int{15, 5},
-		Size:   [2]int{7, 3},
+		X:      32,
+		Y:      45,
+		Width:  10,
+		Height: 15,
 	},
 }
 
@@ -72,23 +86,31 @@ var robots = Robots{
 var barriers = Barriers{
 	Barrier{
 		ID:     0,
-		Coords: [2]int{1, 2},
-		Size:   [2]int{3, 4},
+		X:      16,
+		Y:      34,
+		Width:  5,
+		Height: 8,
 	},
 	Barrier{
 		ID:     1,
-		Coords: [2]int{5, 6},
-		Size:   [2]int{7, 8},
+		X:      12,
+		Y:      34,
+		Width:  22,
+		Height: 15,
 	},
 	Barrier{
 		ID:     2,
-		Coords: [2]int{8, 4},
-		Size:   [2]int{5, 5},
+		X:      34,
+		Y:      22,
+		Width:  12,
+		Height: 13,
 	},
 	Barrier{
 		ID:     3,
-		Coords: [2]int{17, 22},
-		Size:   [2]int{12, 14},
+		X:      26,
+		Y:      12,
+		Width:  14,
+		Height: 17,
 	},
 }
 
